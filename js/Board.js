@@ -49,7 +49,7 @@ Row.prototype.drawRow = function(rowIndex) {
 Cell.prototype.drawCell = function(Row, columnIndex) {
   let rowHTML = $('div.row[rowIndex="'+Row.rowIndex+'"]');
   let columnHTML;
-  columnHTML  = '<div class="cell" rowIndex="';
+  columnHTML  = '<div class="cell" tabindex="1" rowIndex="';
   columnHTML += Row.rowIndex;
   columnHTML += '" columnIndex="';
   columnHTML += columnIndex;

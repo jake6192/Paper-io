@@ -46,6 +46,21 @@ Player.prototype.movePlayer = function() {
   this.position = newCoords;
   var previousPosition = $('div.row[rowIndex="'+this.previousPosition[0]+'"] > div.cell[columnIndex="'+this.previousPosition[1]+'"]');
   var newPosition = $('div.row[rowIndex="'+this.position[0]+'"] > div.cell[columnIndex="'+this.position[1]+'"]');
-  $(previousPosition).addClass('ownedCell').css({"width": (((BOARD.width/BOARD.cellsPR)+2)+"px"), "height": (((BOARD.height/BOARD.cellsPR)+2)+"px"), "background-color": this.ownedColour});
+  $(previousPosition).addClass('ownedCell').css(
+    {
+      "width": (((BOARD.width/BOARD.cellsPR)+2)+"px"),
+      "height": (((BOARD.height/BOARD.cellsPR)+2)+"px"),
+      "background-color": this.ownedColour
+    }
+  );
   $(newPosition).css({"background-color": this.colour});
 };
+
+Player.prototype.changeDirection = function(keyCode) {
+  switch(keyCode) {
+    case 87: this.direction = 'N'; break;
+    case 68: this.direction = 'E'; break;
+    case 83: this.direction = 'S'; break;
+    case 65: this.direction = 'W'; break;
+  }
+}
