@@ -1,0 +1,23 @@
+.boardStyle {
+  display: flex;
+  flex-direction column;
+  width: min-content;
+  height: min-content;
+  border: 10px inset #666;
+}
+
+.rowStyle {
+  display: flex;
+  flex-direction: row;
+  width: min-content;
+  height: min-content;
+}
+
+.cellStyle {
+  background-color: #FFF;
+  border: 1px groove #555;
+}
+
+.ownedCell {
+  border: none;
+}
