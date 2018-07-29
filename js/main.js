@@ -1,5 +1,5 @@
 const PLAYER_VELOCITY = 1;
-
+let BOARD;
 $(document).ready(function() {
   $('.board').focus();
 
@@ -10,11 +10,7 @@ $(document).ready(function() {
 });
 
 function drawFrame() {
-  for(var i = 0; i < ALL_PLAYERS.length; i++) {
-    var player = ALL_PLAYERS[i];
-    var dir = player.direction;
-    player.movePlayer(player);
-  }
+  for(var i = 0; i < ALL_PLAYERS.length; i++) ALL_PLAYERS[i].movePlayer();
 }
 
 function getHTMLCell(coords) {

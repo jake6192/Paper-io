@@ -8,49 +8,44 @@ function Player(name, startCoords) {
   this.direction = ['N'];
   this.ownedCoords = [];
   this.stealingCoords = [];
+  this.colour = 'rgba(20, 20, 255, 0.95)';
+  this.ownedColour = 'rgba(30, 30, 225, 0.85)';
   this.drawPlayer();
   ALL_PLAYERS.push(this);
   return this;
 }
 
-
 Player.prototype.drawPlayer = function() {
   var _C = this.startCoords;
   var ri = this.position[0], ci = this.position[1];
-  setPlayerDynamics('rgba(30, 30, 225, 0.85)', 'rgba(20, 20, 255, 0.95)');
   if(this.startCoords != null) {
     for(var i = _C[0][0]; i <= _C[1][0]; i++) {
       for(var j = _C[0][1]; j <= _C[1][1]; j++) {
         var row = $('div.row[rowIndex="'+i+'"]');
         var cell = $(row).children('div.cell[columnIndex="'+j+'"]');
         var player = $('div.row[rowIndex="'+ri+'"] > div.cell[columnIndex="'+ci+'"]');
-        $(cell).css(OWNED_CELL);
-        $(player).css(PLAYER_CELL);
+        $(cell).css({"background-color": this.ownedColour});
+        $(player).css({"background-color": this.colour});
         this.ownedCoords.push([i, j]);
       }
     }
     this.startCoords = null;
-  } else {
-    var _PP = this.previousPosition;
-    var previousPosition = $('div.row[rowIndex="'+_PP[0]+'"] > div.cell[columnIndex="'+_PP[1]+'"]');
-    var newPosition = $('div.row[rowIndex="'+ri+'"] > div.cell[columnIndex="'+ci+'"]');
-    $(previousPosition).css(OWNED_CELL);
-    $(newPosition).css(PLAYER_CELL);
   }
-}
+};
 
-Player.prototype.movePlayer = function(player) {
-  var direction = player.direction;
-  var currentPosition = player.position;
+Player.prototype.movePlayer = function() {
+  var direction = this.direction;
+  var newCoords = this.position;
+  var currentPosition = this.position;
   var playerObject = getHTMLCell(currentPosition);
-  var newCoords = [player.position[0], player.position[1]];
-  switch(direction) {
-    case "N": newCoords = [(newCoords[0]-1), newCoords[1]]; break;
-    case "E": newCoords = [newCoords[0], (newCoords[1]+1)]; break;
-    case "S": newCoords = [(newCoords[0]+1), newCoords[1]]; break;
-    case "W": newCoords = [newCoords[0], (newCoords[1]-1)]; break;
-  }
-  player.previousPosition = player.position;
-  player.position = newCoords;
-  this.drawPlayer();
-}
+  this.previousPosition = this.position;
+  if(direction == 'N') newCoords = [(newCoords[0]-1), (newCoords[1]  )];
+  if(direction == 'E') newCoords = [(newCoords[0]  ), (newCoords[1]+1)];
+  if(direction == 'S') newCoords = [(newCoords[0]+1), (newCoords[1]  )];
+  if(direction == 'W') newCoords = [(newCoords[0]  ), (newCoords[1]-1)];
+  this.position = newCoords;
+  var previousPosition = $('div.row[rowIndex="'+this.previousPosition[0]+'"] > div.cell[columnIndex="'+this.previousPosition[1]+'"]');
+  var newPosition = $('div.row[rowIndex="'+this.position[0]+'"] > div.cell[columnIndex="'+this.position[1]+'"]');
+  $(previousPosition).addClass('ownedCell').css({"width": (((BOARD.width/BOARD.cellsPR)+2)+"px"), "height": (((BOARD.height/BOARD.cellsPR)+2)+"px"), "background-color": this.ownedColour});
+  $(newPosition).css({"background-color": this.colour});
+};

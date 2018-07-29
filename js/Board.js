@@ -7,10 +7,7 @@ function Board(width, height, cellsPR) {
     var newRow = new Row(this, i);
     this.rows.push(newRow);
   }
-  applyStyles(this);
-  $('.board').css(BOARD_STYLE);
-  $('.row').css(ROW_STYLE);
-  $('.cell').css(CELL_STYLE);
+  $('.cell').css({"width": (this.width/this.cellsPR+"px"), "height": (this.height/this.cellsPR+"px"),});
   return this;
 }
 
