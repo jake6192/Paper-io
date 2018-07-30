@@ -1,4 +1,5 @@
 function Board(width, height, cellsPerRow) {
+  _cellWidth_ = (width/cellsPerRow);
   this.width = width;
   this.height = height;
   this.cellsPR = cellsPerRow;
@@ -7,7 +8,10 @@ function Board(width, height, cellsPerRow) {
     var newRow = new Row(this, i);
     this.rows.push(newRow);
   }
-  $('.cell').css({"width": (this.width/this.cellsPR+"px"), "height": (this.height/this.cellsPR+"px")});
+  $('.cell').css({
+    "width": (_cellWidth_+"px"),
+    "height": (_cellWidth_+"px")
+  });
   return this;
 }
 
@@ -17,8 +21,7 @@ function Row(_Board, rowIndex) {
   this.cells = [];
   this.drawRow(this.rowIndex);
   for(var i = 0; i < _Board.cellsPR; i++) {
-    var cellWidth = _Board.width/_Board.cellsPR;
-    var newCell = new Cell(this, i, cellWidth);
+    var newCell = new Cell(this, i, _cellWidth_);
     this.cells.push(newCell);
   }
   return this;

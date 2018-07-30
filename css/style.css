@@ -1,6 +1,5 @@
 .board {
   display: flex;
-  flex-direction column;
   flex-direction: column;
   width: min-content;
   height: min-content;
@@ -17,8 +16,18 @@
 .cell {
   background-color: #FFF;
   border: 1px groove #555;
+  color: #ddd;
+  font-family: monospace;
+  text-align: center;
+} .cell:focus {
+  outline: none;
 }
 
 .ownedCell {
   border: none;
+}
+
+.playerCell {
+  border: none !important;
+  outline: 5px auto rgb(59, 153, 252) !important;
 }

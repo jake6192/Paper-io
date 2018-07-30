@@ -2,6 +2,7 @@ let ALL_PLAYERS = [];
 
 function Player(name, startCoords) {
   this.name = name;
+  this.moving = true;
   this.startCoords = startCoords;
   this.previousPosition = [];
   this.position = [(startCoords[0][0]+1), (startCoords[0][1]+1)];
@@ -15,6 +16,12 @@ function Player(name, startCoords) {
   return this;
 }
 
+
+/*****************/
+/* Class Methods */
+/*****************/
+
+
 Player.prototype.drawPlayer = function() {
   var _C = this.startCoords;
   var ri = this.position[0], ci = this.position[1];
@@ -23,7 +30,12 @@ Player.prototype.drawPlayer = function() {
       for(var j = _C[0][1]; j <= _C[1][1]; j++) {
         var cell = getHTMLCell([i, j]);
         var player = getHTMLCell([ri, ci]);
-        $(cell).css({"background-color": this.ownedColour});
+        $(cell).addClass('ownedCell').css({
+          "width": ((_cellWidth_+2)+"px"),
+          "height": ((_cellWidth_+2)+"px"),
+          "line-height": ((_cellWidth_+2)+"px"),
+          "background-color": this.ownedColour
+        });
         $(player).css({"background-color": this.colour});
         this.ownedCoords.push([i, j]);
       }
@@ -45,14 +57,9 @@ Player.prototype.movePlayer = function() {
   this.position = newCoords;
   var previousPosition = getHTMLCell([this.previousPosition[0], this.previousPosition[1]]);
   var newPosition = getHTMLCell([this.position[0], this.position[1]]);
-  $(previousPosition).addClass('ownedCell').css(
-    {
-      "width": (((BOARD.width/BOARD.cellsPR)+2)+"px"),
-      "height": (((BOARD.height/BOARD.cellsPR)+2)+"px"),
-      "background-color": this.ownedColour
-    }
-  ).html('');
-  $(newPosition).css({"background-color": this.colour});
+  $(previousPosition).addClass('ownedCell').css({ "background-color": this.ownedColour }).removeClass('playerCell').html('');
+  $(newPosition).addClass('playerCell').css({ "background-color": this.colour });
+  $(previousPosition, newPosition).css({ "width": ((_cellWidth_+2)+"px"), "height": ((_cellWidth_+2)+"px"), "line-height": ((_cellWidth_+2)+"px") });
 };
 
 Player.prototype.changeDirection = function(keyCode) {
@@ -61,5 +68,6 @@ Player.prototype.changeDirection = function(keyCode) {
     case 68: this.direction = 'E'; break;
     case 83: this.direction = 'S'; break;
     case 65: this.direction = 'W'; break;
+    case 32: this.moving = !this.moving; break;
   }
 }
