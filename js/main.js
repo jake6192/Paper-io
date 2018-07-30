@@ -3,7 +3,7 @@ let BOARD, player1, player1El;
 $(document).ready(function() {
   BOARD = new Board(600, 600, 20);
   player1 = new Player('Jake', [[4, 13], [6, 15]]);
-  player1El = $('div.row[rowIndex="'+player1.position[0]+'"] > div.cell[columnIndex="'+player1.position[1]+'"]');
+  player1El = getHTMLCell([player1.position[0], player1.position[1]]);
   DRAW = setInterval(drawFrame, 250);
 });
 
@@ -13,7 +13,8 @@ $('*').keydown(function(event) {
 
 function drawFrame() {
   for(var i = 0; i < ALL_PLAYERS.length; i++) ALL_PLAYERS[i].movePlayer();
-  player1El = $('div.row[rowIndex="'+player1.position[0]+'"] > div.cell[columnIndex="'+player1.position[1]+'"]');
+  player1El = getHTMLCell([player1.position[0], player1.position[1]]);
+  $(player1El).html(player1.name);
 }
 
 function getHTMLCell(coords) {

@@ -1,13 +1,13 @@
-function Board(width, height, cellsPR) {
+function Board(width, height, cellsPerRow) {
   this.width = width;
   this.height = height;
-  this.cellsPR = cellsPR;
+  this.cellsPR = cellsPerRow;
   this.rows = [];
   for(var i = 0; i < this.cellsPR; i++) {
     var newRow = new Row(this, i);
     this.rows.push(newRow);
   }
-  $('.cell').css({"width": (this.width/this.cellsPR+"px"), "height": (this.height/this.cellsPR+"px"),});
+  $('.cell').css({"width": (this.width/this.cellsPR+"px"), "height": (this.height/this.cellsPR+"px")});
   return this;
 }
 

@@ -21,9 +21,8 @@ Player.prototype.drawPlayer = function() {
   if(this.startCoords != null) {
     for(var i = _C[0][0]; i <= _C[1][0]; i++) {
       for(var j = _C[0][1]; j <= _C[1][1]; j++) {
-        var row = $('div.row[rowIndex="'+i+'"]');
-        var cell = $(row).children('div.cell[columnIndex="'+j+'"]');
-        var player = $('div.row[rowIndex="'+ri+'"] > div.cell[columnIndex="'+ci+'"]');
+        var cell = getHTMLCell([i, j]);
+        var player = getHTMLCell([ri, ci]);
         $(cell).css({"background-color": this.ownedColour});
         $(player).css({"background-color": this.colour});
         this.ownedCoords.push([i, j]);
@@ -44,15 +43,15 @@ Player.prototype.movePlayer = function() {
   if(direction == 'S') newCoords = [(newCoords[0]+1), (newCoords[1]  )];
   if(direction == 'W') newCoords = [(newCoords[0]  ), (newCoords[1]-1)];
   this.position = newCoords;
-  var previousPosition = $('div.row[rowIndex="'+this.previousPosition[0]+'"] > div.cell[columnIndex="'+this.previousPosition[1]+'"]');
-  var newPosition = $('div.row[rowIndex="'+this.position[0]+'"] > div.cell[columnIndex="'+this.position[1]+'"]');
+  var previousPosition = getHTMLCell([this.previousPosition[0], this.previousPosition[1]]);
+  var newPosition = getHTMLCell([this.position[0], this.position[1]]);
   $(previousPosition).addClass('ownedCell').css(
     {
       "width": (((BOARD.width/BOARD.cellsPR)+2)+"px"),
       "height": (((BOARD.height/BOARD.cellsPR)+2)+"px"),
       "background-color": this.ownedColour
     }
-  );
+  ).html('');
   $(newPosition).css({"background-color": this.colour});
 };
 
