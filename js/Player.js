@@ -59,7 +59,7 @@ Player.prototype.movePlayer = function() {
   var newPosition = getHTMLCell([this.position[0], this.position[1]]);
   $(previousPosition).addClass('ownedCell').css({ "background-color": this.ownedColour }).removeClass('playerCell').html('');
   $(newPosition).addClass('playerCell').css({ "background-color": this.colour });
-  $(previousPosition, newPosition).css({ "width": ((_cellWidth_+2)+"px"), "height": ((_cellWidth_+2)+"px"), "line-height": ((_cellWidth_+2)+"px") });
+  $(previousPosition, newPosition).css({ "width": ((_cellWidth_+2.23)+"px"), "height": ((_cellWidth_+2.23)+"px"), "line-height": ((_cellWidth_+2.23)+"px") });
 };
 
 Player.prototype.changeDirection = function(keyCode) {
